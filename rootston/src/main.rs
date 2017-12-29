@@ -4,12 +4,19 @@ extern crate ini;
 extern crate wlroots;
 
 mod config;
+mod desktop;
+mod input;
+mod server;
+mod output;
+mod view;
 
 const ROOSTON_VERSION: &'static str = env!("CARGO_PKG_VERSION");
 const ROOSTON_AUTHORS: &'static str = env!("CARGO_PKG_AUTHORS");
 const ROOSTON_DESCRIPTION: &'static str = env!("CARGO_PKG_DESCRIPTION");
 
 use clap::{App, Arg};
+
+use wlroots::CompositorBuilder;
 
 fn main() {
     let app = App::new("rooston").version(ROOSTON_VERSION)
@@ -28,5 +35,8 @@ fn main() {
                                                                .help("Command that will be ran \
                                                                       at startup."));
     let config = config::roots_config_from_args(app);
-    wlr_log!(L_DEBUG, "Config: {:#?}", config);
+    let compositor = CompositorBuilder::new().build_auto(server::RootsServer::default(),
+                                                         Box::new(input::RootsInput::new()),
+                                                         Box::new(desktop::RootsDesktop::new()));
+    compositor.run()
 }
