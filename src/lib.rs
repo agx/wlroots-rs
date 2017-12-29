@@ -49,7 +49,7 @@ pub use self::compositor::{terminate, Compositor, CompositorBuilder};
 pub use self::events::key_events::*;
 pub use self::events::pointer_events::*;
 pub use self::manager::{InputManagerHandler, KeyboardHandler, OutputBuilder, OutputBuilderResult,
-                        OutputHandler, OutputManagerHandler, PointerHandler};
+                        OutputDestruction, OutputHandler, OutputManagerHandler, PointerHandler};
 pub use self::types::area::*;
 pub use self::types::cursor::*;
 pub use self::types::input_device::*;
