@@ -9,6 +9,7 @@ mod input;
 mod server;
 mod output;
 mod view;
+mod seat;
 
 const ROOSTON_VERSION: &'static str = env!("CARGO_PKG_VERSION");
 const ROOSTON_AUTHORS: &'static str = env!("CARGO_PKG_AUTHORS");
@@ -17,6 +18,8 @@ const ROOSTON_DESCRIPTION: &'static str = env!("CARGO_PKG_DESCRIPTION");
 use clap::{App, Arg};
 
 use wlroots::CompositorBuilder;
+
+compositor_data!(server::RootsServer);
 
 fn main() {
     let app = App::new("rooston").version(ROOSTON_VERSION)

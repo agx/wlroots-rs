@@ -3,6 +3,8 @@ use wlroots::{Compositor, OutputBuilder, OutputBuilderResult, OutputDestruction,
 
 use output::RootsOutput;
 use view::RootsView;
+use server::RootsServer;
+use seat::RootsSeat;
 
 pub struct RootsDesktop {
     views: Vec<RootsView>,
@@ -13,7 +15,8 @@ impl RootsDesktop {
     pub fn new() -> RootsDesktop {
         wlr_log!(L_DEBUG, "Initializing roots desktop");
         RootsDesktop { views: Vec::new(),
-                       outputs: Vec::new() }
+                       outputs: Vec::new()
+        }
     }
 }
 
@@ -34,6 +37,11 @@ impl OutputManagerHandler for RootsDesktop {
         // TODO Output config
 
 
+        let state: &mut RootsServer = compositor.into();
+        for seat in &mut state.seats {
+            seat.configure_cursor(&mut res.output);
+            seat.configure_xcursor(&mut res.output);
+        }
         // NOTE NOTE NOTE possible solution:
         // https://play.rust-lang.org/?gist=7c37803505c71e9c3df37f21fd39fced&version=stable
         // mild boilerplate, but you will probably only have e.g one input and output handler,
