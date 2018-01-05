@@ -25,7 +25,7 @@ impl OutputManagerHandler for RootsDesktop {
                              compositor: &mut Compositor,
                              builder: OutputBuilder<'output>)
                              -> Option<OutputBuilderResult<'output>> {
-        let res = builder.build_best_mode(RootsOutput::new());
+        let mut res = builder.build_best_mode(RootsOutput::new());
         let (w, h) = res.output.physical_dimensions();
         wlr_log!(L_DEBUG, "Output {} added", res.output.name());
         wlr_log!(L_DEBUG,
