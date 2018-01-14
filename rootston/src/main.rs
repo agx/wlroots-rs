@@ -10,6 +10,8 @@ mod server;
 mod output;
 mod view;
 mod seat;
+mod cursor;
+mod keyboard;
 
 const ROOSTON_VERSION: &'static str = env!("CARGO_PKG_VERSION");
 const ROOSTON_AUTHORS: &'static str = env!("CARGO_PKG_AUTHORS");

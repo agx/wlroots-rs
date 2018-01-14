@@ -2,9 +2,9 @@ use wlroots::{Compositor, OutputBuilder, OutputBuilderResult, OutputDestruction,
               OutputManagerHandler};
 
 use output::RootsOutput;
-use view::RootsView;
-use server::RootsServer;
 use seat::RootsSeat;
+use server::RootsServer;
+use view::RootsView;
 
 pub struct RootsDesktop {
     views: Vec<RootsView>,
@@ -15,8 +15,7 @@ impl RootsDesktop {
     pub fn new() -> RootsDesktop {
         wlr_log!(L_DEBUG, "Initializing roots desktop");
         RootsDesktop { views: Vec::new(),
-                       outputs: Vec::new()
-        }
+                       outputs: Vec::new() }
     }
 }
 
@@ -36,7 +35,6 @@ impl OutputManagerHandler for RootsDesktop {
                  h);
         // TODO Output config
 
-
         let state: &mut RootsServer = compositor.into();
         for seat in &mut state.seats {
             seat.configure_cursor(&mut res.output);
@@ -44,8 +42,8 @@ impl OutputManagerHandler for RootsDesktop {
         }
         // NOTE NOTE NOTE possible solution:
         // https://play.rust-lang.org/?gist=7c37803505c71e9c3df37f21fd39fced&version=stable
-        // mild boilerplate, but you will probably only have e.g one input and output handler,
-        // so that's a plus.
+        // mild boilerplate, but you will probably only have e.g one input and output
+        // handler, so that's a plus.
 
         // NOTE: Supertraits do not work for this, since they would go the wrong way
         // (cast from e.g our trait to the wlroots-rs trait, which wouldn't work)
@@ -62,9 +60,10 @@ impl OutputManagerHandler for RootsDesktop {
         // the compositor owns it, but it's not exposed publically so even though we
         // have a reference up to it, we can't modify it. That's probably for the best,
         // because it's a Box<InputManager>, which still just has a box of the trait.
-        // so unless there's a way to upcast to the concrete implementation...that's not really
-        // a solution (and again, that exposes a lot more than I'm comfortable with, so it
-        // it could very, very easily lead to memory unsafety)
+        // so unless there's a way to upcast to the concrete implementation...that's
+        // not really a solution (and again, that exposes a lot more than I'm
+        // comfortable with, so it it could very, very easily lead to memory
+        // unsafety)
         Some(res)
     }
 

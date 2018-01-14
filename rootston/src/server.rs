@@ -6,8 +6,6 @@ pub struct RootsServer {
 
 impl Default for RootsServer {
     fn default() -> RootsServer {
-        RootsServer {
-            seats: Vec::new()
-        }
+        RootsServer { seats: Vec::new() }
     }
 }
