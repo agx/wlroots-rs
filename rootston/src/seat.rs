@@ -1,4 +1,4 @@
-use wlroots::{InputDevice, OutputHandle, XCursorTheme};
+use wlroots::{InputDevice, Output, OutputHandle, XCursorTheme};
 use wlroots::seat::Seat;
 
 use cursor::RootsCursor;
@@ -22,7 +22,7 @@ pub struct RootsTabletTool {
 }
 
 impl RootsSeat {
-    pub fn configure_cursor(&mut self, output: &mut OutputHandle) {
+    pub fn configure_cursor(&mut self, output: &mut Output) {
         // Reset mappings
         unsafe {
             // TODO Remove unsafe block!
@@ -45,7 +45,7 @@ impl RootsSeat {
         unimplemented!()
     }
 
-    pub fn configure_xcursor(&mut self, output: &mut OutputHandle) {
+    pub fn configure_xcursor(&mut self, output: &mut Output) {
         // TODO load from config
         let xcursor_theme = XCursorTheme::load_theme(None, 16).expect("Could not load theme");
         let xcursor = xcursor_theme.get_cursor("lefT_ptr".into())
